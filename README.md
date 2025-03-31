@@ -36,9 +36,9 @@ This script enhances inventory tracking for OX Inventory by logging key item tra
 
 - Glovebox Remove: When a player removes an item from a vehicle's glovebox.
 
-Usage:
-Simply install the script, configure the webhook, and enjoy detailed inventory tracking with Discord ID-based logging instead of License IDs.
+**Usage:**
 
+Simply install the script, configure the webhook, and enjoy detailed inventory tracking with Discord ID-based logging instead of License IDs.
 
 **Discord Invite:**
 
