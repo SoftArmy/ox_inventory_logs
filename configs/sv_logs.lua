@@ -232,7 +232,7 @@ hooks = {
             sendWebhook('trunk', {
                 {
                     title = 'Trunk Add Item',
-                    description = ('**Player Name:** `%s` \n **Discord ID:** `%s` \n **Player ID:** `%s` \n **Item Name:** `%s` \n **Count:** `x%s` \n **Metadata:** `%s` \n **Coordinates:** `%s`')
+                    description = ('**Player Name:** `%s` \n **Discord ID:** `%s` \n **Player ID:** `%s` \n **Item Name:** `%s` \n **Count:** `x%s` \n **Metadata:** `%s` \n **Trunk ID:** `%s` \n **Coordinates:** `%s`')
                         :format(
                             playerName,
                             playerDiscordID,
@@ -270,7 +270,7 @@ hooks = {
             sendWebhook('trunk', {
                 {
                     title = 'Trunk Remove Item',
-                    description = ('**Player Name:** `%s` \n **Discord ID:** `%s` \n **Player ID:** `%s` \n **Item Name:** `%s` \n **Count:** `x%s` \n **Metadata:** `%s` \n **Coordinates:** `%s`')
+                    description = ('**Player Name:** `%s` \n **Discord ID:** `%s` \n **Player ID:** `%s` \n **Item Name:** `%s` \n **Count:** `x%s` \n **Metadata:** `%s` \n **Trunk ID:** `%s` \n **Coordinates:** `%s`')
                         :format(
                             playerName,
                             playerDiscordID,
@@ -287,7 +287,7 @@ hooks = {
         end
     },
     
-    ['glovebox_add'] = {
+    ['add'] = {
         from = 'player',
         to = 'glovebox',
         callback = function(payload)
@@ -308,7 +308,7 @@ hooks = {
             sendWebhook('glovebox', {
                 {
                     title = 'Glovebox Add Item',
-                    description = ('`Player Name:` %s \n `Discord ID:` %s \n `Player ID:` %s \n `Item Name:` %s x%s (metadata: %s) \n `Glovebox ID:` %s \n `Coordinates:` %s')
+                    description = ('**Player Name:** `%s` \n **Discord ID:** `%s` \n **Player ID:** `%s` \n **Item Name:** `%s` \n **Count:** `x%s` \n **Metadata:** `%s` \n **Glovebox ID:** `%s` \n **Coordinates:** `%s`')
                         :format(
                             playerName,
                             playerDiscordID,
@@ -346,7 +346,7 @@ hooks = {
             sendWebhook('glovebox', {
                 {
                     title = 'Glovebox Remove Item',
-                    description = ('`Player Name:` %s \n `Discord ID:` %s \n `Player ID:` %s \n `Item Name:` %s x%s (metadata: %s) \n `Glovebox ID:` %s \n `Coordinates:` %s')
+                    description = ('**Player Name:** `%s` \n **Discord ID:** `%s` \n **Player ID:** `%s` \n **Item Name:** `%s` \n **Count:** `x%s` \n **Metadata:** `%s` \n **Glovebox ID:** `%s` \n **Coordinates:** `%s`')
                         :format(
                             playerName,
                             playerDiscordID,
@@ -361,5 +361,5 @@ hooks = {
                 }
             })
         end
-    },        
+    },            
 }
