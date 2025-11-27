@@ -77,58 +77,83 @@ hooks = {
             })
         end
     },
+
     ['give'] = {
         from = 'player',
         to = 'player',
         callback = function(payload)
             if payload.fromInventory == payload.toInventory then return end
-            
+
             local playerName = GetPlayerName(payload.source)
             local targetSource = payload.toInventory
             local targetName = GetPlayerName(targetSource)
-    
+
             local playerIdentifiers = GetPlayerIdentifiers(payload.source)
             local targetIdentifiers = GetPlayerIdentifiers(targetSource)
-    
+
             local playerDiscordID = 'N/A'
             local targetDiscordID = 'N/A'
-    
-            -- Get Discord ID for source player
+
+            -- Get Discord for source
             for _, identifier in ipairs(playerIdentifiers) do
-                if string.find(identifier, "discord:") then
+                if identifier:find("discord:") then
                     playerDiscordID = identifier:gsub("discord:", "")
                     break
                 end
             end
-    
-            -- Get Discord ID for target player
+
+            -- Get Discord for target
             for _, identifier in ipairs(targetIdentifiers) do
-                if string.find(identifier, "discord:") then
+                if identifier:find("discord:") then
                     targetDiscordID = identifier:gsub("discord:", "")
                     break
                 end
             end
-    
+
             local playerCoords = GetEntityCoords(GetPlayerPed(payload.source))
             local targetCoords = GetEntityCoords(GetPlayerPed(targetSource))
-    
+
+            -- FIXED: correct transferred amount
+            local transferred = payload.amount or payload.count or 1
+
             sendWebhook('give', {
                 {
                     title = 'Transfer of items between players',
-                    description = ('**Player Name:** `%s` \n **Discord ID:** `%s` \n **Player ID:** `%s` \n **Item Name:** `%s` \n **Count:** `x%s` \n **Metadata:** `%s` \n **Coordinates:** `%s`')
-                        :format(
-                            playerName,
-                            playerDiscordID,
-                            payload.source,
-                            targetName,
-                            targetDiscordID,
-                            targetSource,
-                            payload.fromSlot.name,
-                            payload.fromSlot.count,
-                            json.encode(payload.fromSlot.metadata),
-                            ('%s, %s, %s'):format(playerCoords.x, playerCoords.y, playerCoords.z),
-                            ('%s, %s, %s'):format(targetCoords.x, targetCoords.y, targetCoords.z)
-                        ),
+                    description = (
+                        '**From Player:**\n' ..
+                        'Name: `%s`\n' ..
+                        'Discord: `%s`\n' ..
+                        'Player ID: `%s`\n\n' ..
+
+                        '**To Player:**\n' ..
+                        'Name: `%s`\n' ..
+                        'Discord: `%s`\n' ..
+                        'Player ID: `%s`\n\n' ..
+
+                        '**Item Info:**\n' ..
+                        'Item Name: `%s`\n' ..
+                        'Count: `x%s`\n' ..  
+                        'Metadata: `%s`\n\n' ..
+
+                        '**Coordinates:**\n' ..
+                        'From Player: `%s, %s, %s`\n' ..
+                        'To Player: `%s, %s, %s`'
+                    ):format(
+                        playerName,
+                        playerDiscordID,
+                        payload.source,
+
+                        targetName,
+                        targetDiscordID,
+                        targetSource,
+
+                        payload.fromSlot.name,
+                        transferred, 
+                        json.encode(payload.fromSlot.metadata),
+
+                        playerCoords.x, playerCoords.y, playerCoords.z,
+                        targetCoords.x, targetCoords.y, targetCoords.z
+                    ),
                     color = 0x00ff00
                 }
             })
@@ -361,5 +386,5 @@ hooks = {
                 }
             })
         end
-    },            
+    },       
 }
