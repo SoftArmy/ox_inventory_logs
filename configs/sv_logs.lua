@@ -5,7 +5,6 @@ webhooks = {
     ['stash'] = '',
     ['trunk'] = '',
     ['glovebox'] = '',
-    ['shop'] = '',
 }
 hooks = {
     ['drop'] = {
