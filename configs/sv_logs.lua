@@ -5,6 +5,7 @@ webhooks = {
     ['stash'] = '',
     ['trunk'] = '',
     ['glovebox'] = '',
+    ['shop'] = '',
 }
 hooks = {
     ['drop'] = {
@@ -24,6 +25,7 @@ hooks = {
             end
     
             local playerCoords = GetEntityCoords(GetPlayerPed(payload.source))
+            local transferred = payload.amount or payload.count or 1
             sendWebhook('drop', {
                 {
                     title = 'Drop',
@@ -33,7 +35,7 @@ hooks = {
                             playerDiscordID,
                             payload.source,
                             payload.fromSlot.name,
-                            payload.fromSlot.count,
+                            transferred,
                             json.encode(payload.fromSlot.metadata),
                             ('%s, %s, %s'):format(playerCoords.x, playerCoords.y, playerCoords.z)
                         ),
@@ -59,6 +61,7 @@ hooks = {
             end
     
             local playerCoords = GetEntityCoords(GetPlayerPed(payload.source))
+            local transferred = payload.amount or payload.count or 1
             sendWebhook('pickup', {
                 {
                     title = 'Pickup',
@@ -68,7 +71,7 @@ hooks = {
                             playerDiscordID,
                             payload.source,
                             payload.fromSlot.name,
-                            payload.fromSlot.count,
+                            transferred,
                             json.encode(payload.fromSlot.metadata),
                             ('%s, %s, %s'):format(playerCoords.x, playerCoords.y, playerCoords.z)
                         ),
@@ -77,7 +80,7 @@ hooks = {
             })
         end
     },
-
+    
     ['give'] = {
         from = 'player',
         to = 'player',
@@ -113,7 +116,6 @@ hooks = {
             local playerCoords = GetEntityCoords(GetPlayerPed(payload.source))
             local targetCoords = GetEntityCoords(GetPlayerPed(targetSource))
 
-            -- FIXED: correct transferred amount
             local transferred = payload.amount or payload.count or 1
 
             sendWebhook('give', {
@@ -132,7 +134,7 @@ hooks = {
 
                         '**Item Info:**\n' ..
                         'Item Name: `%s`\n' ..
-                        'Count: `x%s`\n' ..  
+                        'Count: `x%s`\n' ..     -- <<< FIXED HERE
                         'Metadata: `%s`\n\n' ..
 
                         '**Coordinates:**\n' ..
@@ -177,6 +179,7 @@ hooks = {
             end
     
             local playerCoords = GetEntityCoords(GetPlayerPed(payload.source))
+            local transferred = payload.amount or payload.count or 1
     
             sendWebhook('stash', {
                 {
@@ -187,7 +190,7 @@ hooks = {
                             playerDiscordID,
                             payload.source,
                             payload.fromSlot.name,
-                            payload.fromSlot.count,
+                            transferred,
                             json.encode(payload.fromSlot.metadata),
                             payload.toInventory,
                             ('%s, %s, %s'):format(playerCoords.x, playerCoords.y, playerCoords.z)
@@ -215,6 +218,7 @@ hooks = {
             end
     
             local playerCoords = GetEntityCoords(GetPlayerPed(payload.source))
+            local transferred = payload.amount or payload.count or 1
     
             sendWebhook('stash', {
                 {
@@ -225,7 +229,7 @@ hooks = {
                             playerDiscordID,
                             payload.source,
                             payload.fromSlot.name,
-                            payload.fromSlot.count,
+                            transferred,
                             json.encode(payload.fromSlot.metadata),
                             payload.fromInventory,
                             ('%s, %s, %s'):format(playerCoords.x, playerCoords.y, playerCoords.z)
@@ -253,6 +257,7 @@ hooks = {
             end
     
             local playerCoords = GetEntityCoords(GetPlayerPed(payload.source))
+            local transferred = payload.amount or payload.count or 1
     
             sendWebhook('trunk', {
                 {
@@ -263,7 +268,7 @@ hooks = {
                             playerDiscordID,
                             payload.source,
                             payload.fromSlot.name,
-                            payload.fromSlot.count,
+                            transferred,
                             json.encode(payload.fromSlot.metadata),
                             payload.toInventory,
                             ('%s, %s, %s'):format(playerCoords.x, playerCoords.y, playerCoords.z)
@@ -291,6 +296,7 @@ hooks = {
             end
     
             local playerCoords = GetEntityCoords(GetPlayerPed(payload.source))
+            local transferred = payload.amount or payload.count or 1
     
             sendWebhook('trunk', {
                 {
@@ -301,7 +307,7 @@ hooks = {
                             playerDiscordID,
                             payload.source,
                             payload.fromSlot.name,
-                            payload.fromSlot.count,
+                            transferred,
                             json.encode(payload.fromSlot.metadata),
                             payload.fromInventory,
                             ('%s, %s, %s'):format(playerCoords.x, playerCoords.y, playerCoords.z)
@@ -329,6 +335,7 @@ hooks = {
             end
     
             local playerCoords = GetEntityCoords(GetPlayerPed(payload.source))
+            local transferred = payload.amount or payload.count or 1
     
             sendWebhook('glovebox', {
                 {
@@ -339,7 +346,7 @@ hooks = {
                             playerDiscordID,
                             payload.source,
                             payload.fromSlot.name,
-                            payload.fromSlot.count,
+                            transferred,
                             json.encode(payload.fromSlot.metadata),
                             payload.toInventory,
                             ('%s, %s, %s'):format(playerCoords.x, playerCoords.y, playerCoords.z)
@@ -367,6 +374,7 @@ hooks = {
             end
     
             local playerCoords = GetEntityCoords(GetPlayerPed(payload.source))
+            local transferred = payload.amount or payload.count or 1
     
             sendWebhook('glovebox', {
                 {
@@ -377,7 +385,7 @@ hooks = {
                             playerDiscordID,
                             payload.source,
                             payload.fromSlot.name,
-                            payload.fromSlot.count,
+                            transferred,
                             json.encode(payload.fromSlot.metadata),
                             payload.fromInventory,
                             ('%s, %s, %s'):format(playerCoords.x, playerCoords.y, playerCoords.z)
@@ -386,5 +394,5 @@ hooks = {
                 }
             })
         end
-    },       
+    },
 }
